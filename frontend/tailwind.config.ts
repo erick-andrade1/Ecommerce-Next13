@@ -7,11 +7,13 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    fontFamily: {
-      sans: ['sans-serif'],
-    },
-    gridTemplateRows: {
-      app: 'min-content max-content',
+    extend: {
+      fontFamily: {
+        sans: ['sans-serif'],
+      },
+      gridTemplateRows: {
+        app: 'min-content max-content',
+      },
     },
   },
   plugins: [],

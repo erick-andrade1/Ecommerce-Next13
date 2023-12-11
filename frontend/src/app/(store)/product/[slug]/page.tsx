@@ -1,5 +1,6 @@
 import { api } from '@/data/api';
 import { IProduct } from '@/data/types/product';
+import { Metadata } from 'next';
 import Image from 'next/image';
 
 interface IProductPageParameters {
@@ -18,6 +19,15 @@ async function getProduct(slug: string): Promise<IProduct> {
   const product = await response.json();
 
   return product;
+}
+
+// Memoization: estamos chamando a getProduct tanto dentro dessa função quanto na página, mas o react evita que sejam duplicadas, logo elas
+// são chamadas apenas uma vez! Então não tem problema chamar mais de uma vez de acordo com a necessidade já que as requisições são as mesmas!
+export async function generateMetadata({ params }: IProductPageParameters): Promise<Metadata> {
+  const product = await getProduct(params.slug);
+  return {
+    title: product.title,
+  };
 }
 
 export default async function ProductPage({ params }: IProductPageParameters) {
